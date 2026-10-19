@@ -13,6 +13,8 @@ import {
   ParseFilePipe,
   MaxFileSizeValidator,
   FileTypeValidator,
+  Query,
+  Res,
 } from '@nestjs/common';
 
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -24,6 +26,7 @@ import type { Express } from 'express';
 import { CourseService } from './course.service.js';
 import { CreateCourseDto } from './dto/create-course.dto.js';
 import { UpdateCourseDto } from './dto/update-course.dto.js';
+import type { Response } from 'express';
 
 @Controller('course')
 export class CourseController {
@@ -126,4 +129,16 @@ export class CourseController {
       path,
     };
   }
+
+@Get('file-download/download/download')
+fileDownload(
+  @Query('fileName') fileName: string,
+  @Res() res: Response,
+) {
+  if (!fileName) {
+    throw new BadRequestException('fileName is required');
+  }
+
+  return res.sendFile(fileName, { root: './src/uploads' });
+}
 }
