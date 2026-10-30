@@ -11,7 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     port : 5432,
     username : 'postgres',
     password : 'jahabun4310',
-    database : 'product_inventory_db',
+    database : 'product-inventory-db',
     autoLoadEntities : true,
     synchronize : true,
   })],
